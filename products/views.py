@@ -6,7 +6,7 @@ from products.models import Category, Product
 class IndexView(View):
     def get(self, request):
         context = {
-            'title': 'GeekStore123'
+            'title': 'GeekStore'
         }
 
         return render(request, "products/index.html", context=context)
