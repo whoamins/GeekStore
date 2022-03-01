@@ -2,7 +2,9 @@ from django.contrib import admin
 from users.models import User
 
 
-# TODO: Display user fields in admin panel
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('username', 'email', 'is_staff', 'is_active')
+    list_filter = ('is_staff',)
 
 
-admin.site.register(User)
+admin.site.register(User, UserAdmin)
