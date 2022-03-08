@@ -11,12 +11,8 @@ class UserLoginForm(AuthenticationForm):
         for field_name, field in self.fields.items():  # WTF
             field.widget.attrs['class'] = 'form-control py-4'
 
-    username = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': 'Username'}),
-        min_length=1, max_length=50)
-    password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Password'}),
-        min_length=1, max_length=128)
+    username = forms.TextInput()
+    password = forms.PasswordInput()
 
     class Meta:
         model = User
@@ -30,14 +26,12 @@ class UserRegistrationForm(UserCreationForm):
         for field_name, field in self.fields.items():  # WTF
             field.widget.attrs['class'] = 'form-control py-4'
 
-    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'First Name'}))
-    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last Name'}))
-    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}), min_length=1, max_length=50)
-    email = forms.CharField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}), min_length=8,
-                                max_length=128)
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Repeat Password'}), min_length=8,
-                                max_length=128)
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    username = forms.CharField(min_length=1, max_length=50)
+    email = forms.EmailInput()
+    password1 = forms.PasswordInput()
+    password2 = forms.PasswordInput()
 
     class Meta:
         model = User
@@ -53,10 +47,10 @@ class EditForm(UserChangeForm):
 
         self.fields['image'].widget.attrs['class'] = 'custom-file-input'
 
-    first_name = forms.CharField(widget=forms.TextInput(attrs={}))
-    last_name = forms.CharField(widget=forms.TextInput())
-    username = forms.CharField(widget=forms.TextInput(attrs={'readonly': True}))
-    email = forms.CharField(widget=forms.EmailInput(attrs={'readonly': True}))
+    first_name = forms.TextInput()
+    last_name = forms.TextInput()
+    username = forms.TextInput()
+    email = forms.EmailInput()
 
     class Meta:
         model = User
