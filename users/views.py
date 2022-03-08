@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
 
-from users.forms import UserLoginForm, UserRegistrationForm
+from users.forms import UserLoginForm, UserRegistrationForm, EditForm
 
 
 class LoginView(View):
@@ -46,3 +46,22 @@ class RegisterView(View):
             return HttpResponseRedirect(reverse('users:login'))
 
         return HttpResponseRedirect(reverse('users:register'))
+
+
+class ProfileView(View):
+    def get(self, request):
+        form = EditForm(instance=request.user)
+        context = {"form": form}
+
+        return render(request, 'users/profile.html', context=context)
+
+    def post(self, request):
+        form = EditForm(data=request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('users:profile'))
+        else:
+            print(form.errors)
+
+        return HttpResponseRedirect(reverse('products:index'))
