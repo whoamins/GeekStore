@@ -65,3 +65,9 @@ class ProfileView(View):
             print(form.errors)
 
         return HttpResponseRedirect(reverse('products:index'))
+
+
+class LogoutView(View):
+    def get(self, request):
+        auth.logout(request)
+        return HttpResponseRedirect(reverse("products:index"))
