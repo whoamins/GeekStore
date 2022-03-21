@@ -1,4 +1,4 @@
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -28,7 +28,8 @@ class LoginView(View):
 
                 return HttpResponseRedirect(reverse('products:index'))
 
-        return HttpResponseRedirect(reverse('users:login'))
+        # return HttpResponseRedirect(reverse('users:login'))
+        return render(request, 'users/login.html', context={'form': form})
 
 
 class RegisterView(View):
@@ -43,9 +44,12 @@ class RegisterView(View):
 
         if form.is_valid():
             form.save()
+            messages.success(request, message='You have been successfully registered')
+
             return HttpResponseRedirect(reverse('users:login'))
 
-        return HttpResponseRedirect(reverse('users:register'))
+        # return HttpResponseRedirect(reverse('users:register'))
+        return render(request, 'users/register.html', context={'form': form})
 
 
 class ProfileView(View):
@@ -61,7 +65,5 @@ class ProfileView(View):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('users:profile'))
-        else:
-            print(form.errors)
 
         return HttpResponseRedirect(reverse('products:index'))
